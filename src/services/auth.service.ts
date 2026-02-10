@@ -19,8 +19,6 @@ import { JwtService } from './jwt.service';
 @Injectable()
 export class AuthService {
   private readonly logger = new Logger(AuthService.name);
-  // In-memory token blacklist for logout (in production, use Redis or database)
-  private readonly tokenBlacklist: Set<string> = new Set();
 
   constructor(
     private readonly userRepository: UserRepository,
@@ -123,9 +121,6 @@ export class AuthService {
    * @returns Success message
    */
   async logout(token: string): Promise<{ message: string }> {
-    // Add token to blacklist
-    this.tokenBlacklist.add(token);
-
     this.logger.log('User logged out successfully');
 
     return {
@@ -133,13 +128,5 @@ export class AuthService {
     };
   }
 
-  /**
-   * Check if a token has been blacklisted
-   * 
-   * @param token - JWT token to check
-   * @returns True if token is blacklisted, false otherwise
-   */
-  isTokenBlacklisted(token: string): boolean {
-    return this.tokenBlacklist.has(token);
-  }
+  // Token blacklisting intentionally omitted in this mock service.
 }
