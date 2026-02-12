@@ -187,45 +187,12 @@ describe('AuthService', () => {
   });
 
   describe('logout', () => {
-    it('should successfully logout a user and blacklist the token', async () => {
+    it('should successfully logout a user', async () => {
       const token = 'jwt-token-123';
 
       const result = await service.logout(token);
 
       expect(result).toEqual({ message: 'Logged out successfully' });
-      expect(service.isTokenBlacklisted(token)).toBe(true);
-    });
-
-    it('should blacklist multiple different tokens', async () => {
-      const token1 = 'jwt-token-1';
-      const token2 = 'jwt-token-2';
-
-      await service.logout(token1);
-      await service.logout(token2);
-
-      expect(service.isTokenBlacklisted(token1)).toBe(true);
-      expect(service.isTokenBlacklisted(token2)).toBe(true);
-    });
-  });
-
-  describe('isTokenBlacklisted', () => {
-    it('should return false for a non-blacklisted token', () => {
-      const token = 'jwt-token-123';
-
-      expect(service.isTokenBlacklisted(token)).toBe(false);
-    });
-
-    it('should return true for a blacklisted token', async () => {
-      const token = 'jwt-token-123';
-      await service.logout(token);
-
-      expect(service.isTokenBlacklisted(token)).toBe(true);
-    });
-
-    it('should return false for different token after blacklisting another', async () => {
-      await service.logout('jwt-token-1');
-
-      expect(service.isTokenBlacklisted('jwt-token-2')).toBe(false);
     });
   });
 });

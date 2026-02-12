@@ -240,7 +240,7 @@ curl -X POST http://localhost:3002/auth/logout \
 
 ## Integration with Auth Middleware
 
-This service generates JWT tokens that are compatible with the `@sample-app/nestjs-mock-auth` middleware used in other services. The tokens include:
+This service generates JWT tokens that are compatible with the `@bitovi-corp/auth-middleware` middleware used in other services. The tokens include:
 
 - `sub`: User ID
 - `email`: User email
@@ -251,7 +251,7 @@ This service generates JWT tokens that are compatible with the `@sample-app/nest
 Other services can validate these tokens using the AuthGuard:
 
 ```typescript
-import { AuthGuard, User, UserClaims } from '@sample-app/nestjs-mock-auth';
+import { AuthGuard, User, UserClaims } from '@bitovi-corp/auth-middleware';
 
 @Controller('api')
 @UseGuards(AuthGuard)

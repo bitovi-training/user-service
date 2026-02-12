@@ -1,4 +1,4 @@
-import { Controller, Get, Param, NotFoundException, Logger } from '@nestjs/common';
+import { Controller, Get, Param, Logger } from '@nestjs/common';
 import { UserService } from '../services/user.service';
 
 /**
@@ -32,26 +32,6 @@ export class UserController {
   }
 
   /**
-   * Get user by ID
-   * 
-   * GET /users/:userId
-   * 
-   * @param userId - User's unique identifier
-   * @returns User information (without sensitive data)
+   * Note: user detail retrieval intentionally omitted to keep this service auth-focused.
    */
-  @Get(':userId')
-  async getUserById(@Param('userId') userId: string): Promise<{ id: string; email: string; roles: string[] }> {
-    this.logger.log(`GET /users/${userId}`);
-    const user = await this.userService.getUserById(userId);
-    
-    if (!user) {
-      throw new NotFoundException(`User with ID ${userId} not found`);
-    }
-    
-    return {
-      id: user.id,
-      email: user.email,
-      roles: user.roles,
-    };
-  }
 }
